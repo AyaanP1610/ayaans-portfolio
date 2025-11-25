@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" class="smooth-scroll">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Mortgage Inc. - Apurva Sindhi</title>
+    <meta name="description" content="Expert mortgage solutions in Mississauga. Apurva Sindhi specializes in first-time home purchases, refinancing, and investment properties. Your trusted mortgage specialist.">
+    <meta name="keywords" content="Mortgage Specialist Mississauga, Mortgage Broker, Chronos Mortgage, Apurva Sindhi, Home Loans, Refinancing">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for Calculator Visuals -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles & Configuration -->
+    <style>
+        :root {
+            --navy: #0A1A3F;
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+            --orange-accent: #f39c12;
+            --dark-bg: #050d21;
+            --dark-text: #E0E0E0;
+        }
+
+        /* Base & Dark Mode Styles */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--white);
+            color: var(--navy);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        html.dark body {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        html.dark .bg-white { background-color: var(--dark-bg); }
+        html.dark .bg-gray-50 { background-color: #08142e; }
+        html.dark .text-navy { color: var(--gold); }
+        html.dark .text-gray-700, html.dark .text-gray-600 { color: var(--dark-text); }
+        html.dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(212, 175, 55, 0.1), 0 4px 6px -2px rgba(212, 175, 55, 0.05); }
+        html.dark .border-gray-300 { border-color: rgba(212, 175, 55, 0.3); }
+        html.dark .chatbot-window { background-color: var(--dark-bg); border-color: var(--gold);}
+        html.dark .chat-input { background-color: #08142e; color: var(--dark-text); }
+
+
+        /* Typography */
+        .font-heading { font-family: 'Playfair Display', serif; }
+        .font-signature { font-family: 'Great Vibes', cursive; }
+
+        /* Colors & Gradients */
+        .bg-navy { background-color: var(--navy); }
+        .bg-navy-gradient { background: linear-gradient(135deg, #0A1A3F, #040a1a); }
+        html.dark .bg-navy-gradient { background: linear-gradient(135deg, #050d21, #000000); }
+        .text-navy { color: var(--navy); }
+        .bg-gold { background-color: var(--gold); }
+        .text-gold { color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
+
+        /* Buttons with Advanced Effects */
+        .btn {
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            z-index: -1;
+        }
+        .btn:hover::before {
+            width: 200%;
+            height: 200%;
+        }
+        .btn-gold {
+            background-color: var(--gold);
+            color: var(--navy);
+        }
+        .btn-gold:hover {
+            background-color: var(--orange-accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+        }
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Hero Section Video Background */
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+        .hero-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--navy);
+            opacity: 0.8;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Keyframe Animations */
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px var(--gold); } 50% { box-shadow: 0 0 30px var(--gold); } }
+        @keyframes chat-bubble-pop { 0% { transform: scale(0.5); opacity: 0; } 80% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+        
+        /* Scroll Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+        }
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .floating-cta {
+             animation: pulse-glow 2s infinite;
+        }
+
+        /* Section Title Accent */
+        .section-title-accent {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title-accent::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold);
+            transition: width 0.3s ease-in-out;
+        }
+        .section-title-accent:hover::after {
+            width: 100px;
+        }
+
+        /* Service Card with 3D Hover Effect */
+        .service-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        .service-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2), 0 0 35px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Form Styling */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+             box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Chatbot Styles */
+        #chatbot-toggle {
+            transition: transform 0.3s ease-in-out;
+        }
+        #chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+        #chatbot-window {
+            height: 70vh;
+            max-height: 500px;
+            width: 90vw;
+            max-width: 400px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #chatbot-window.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .chat-message {
+            animation: chat-bubble-pop 0.3s ease-out forwards;
+        }
+        .typing-indicator span {
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300" id="header">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-4">
+                <img src="Chronos Mortgage Inc. Logo with Key Icon.png" alt="Chronos Mortgage Inc. Logo" class="h-16 w-auto">
+                <div>
+                     <p class="font-heading text-xl font-bold text-navy">Apurva Sindhi</p>
+                     <p class="text-xs text-gray-500">Mortgage Specialist</p>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-navy font-semibold hover:text-gold transition-colors duration-300">Home</a>
+                <a href="#about" class="text-navy font-semibold hover:text-gold transition-colors duration-300">About</a>
+                <a href="#services" class="text-navy font-semibold hover:text-gold transition-colors duration-300">Services</a>
+                <a href="#why-us" class="text-navy font-semibold hover:text-gold transition-colors duration-300">Why Us</a>
+                <a href="#calculator" class="text-navy font-semibold hover:text-gold transition-colors duration-300">Calculator</a>
+                <a href="#contact" class="text-navy font-semibold hover:text-gold transition-colors duration-300">Contact</a>
+            </div>
+            <div class="flex items-center">
+                 <a href="#contact" class="hidden md:inline-block btn btn-gold">Get Approved</a>
+                <!-- Dark Mode Toggle -->
+                 <button id="dark-mode-toggle" class="ml-4 text-navy p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                 </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden ml-2 text-navy focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white dark:bg-gray-800">
+            <a href="#home" class="block py-2 text-navy font-semibold">Home</a>
+            <a href="#about" class="block py-2 text-navy font-semibold">About</a>
+            <a href="#services" class="block py-2 text-navy font-semibold">Services</a>
+            <a href="#why-us" class="block py-2 text-navy font-semibold">Why Us</a>
+            <a href="#calculator" class="block py-2 text-navy font-semibold">Calculator</a>
+            <a href="#contact" class="block py-2 text-navy font-semibold">Contact</a>
+            <a href="#contact" class="mt-4 btn btn-gold w-full">Get Approved</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Section -->
+        <section id="home" class="relative text-white overflow-hidden h-screen flex items-center justify-center">
+            <video autoplay loop muted playsinline class="hero-video-bg">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-beautiful-villa-with-a-lawn-and-a-swimming-pool-4936-large.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content container mx-auto px-6 text-center">
+                <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-gold drop-shadow-lg" style="animation: slideInUp 1s ease-out;">
+                    Financing Your Future with Confidence.
+                </h1>
+                <p class="mt-8 text-lg md:text-xl max-w-3xl mx-auto" style="animation: slideInUp 1s ease-out 0.3s; animation-fill-mode: backwards;">
+                    Tailored mortgage solutions for homeowners, investors, and families.
+                </p>
+                <div class="mt-12 space-y-4 md:space-y-0 md:space-x-6" style="animation: slideInUp 1s ease-out 0.6s; animation-fill-mode: backwards;">
+                    <a href="#contact" class="btn btn-glass">Apply Now</a>
+                    <a href="#contact" class="btn btn-glass">Book a Consultation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Apurva Sindhi -->
+        <section id="about" class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="animate-on-scroll flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                    <div class="w-full md:w-1/3 flex flex-col items-center">
+                        <img src="IMG_6536.PNG" alt="Apurva Sindhi" class="rounded-full shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-gold">
+                        <div class="mt-6 text-center">
+                             <p class="font-signature text-5xl text-navy">Apurva Sindhi</p>
+                             <div class="flex justify-center items-center space-x-4 mt-4">
+                                <span class="text-sm font-bold text-gray-600">Lic #M25002184</span>
+                                <span class="text-gray-300">|</span>
+                                <div class="flex items-center space-x-2">
+                                     <div class="w-8 h-8 flex items-center justify-center rounded-full bg-red-600 text-white font-bold text-lg">M</div>
+                                     <p class="text-left text-xs text-gray-500 font-bold">The Mortgage Centre</p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3 text-center md:text-left">
+                        <h2 class="font-heading text-4xl md:text-5xl font-bold text-navy section-title-accent">Your Trusted Mortgage Expert</h2>
+                        <p class="mt-10 text-xl text-gray-700 leading-relaxed">
+                            With years of experience in the mortgage industry, I specialize in creating financing solutions that work for you — not the lenders. Licensed, trusted, and committed to excellence, I bring a personalized approach to every client.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Services Section -->
+        <section id="services" class="py-24">
+            <div class="container mx-auto px-6 text-center">
+                <div class="animate-on-scroll">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-navy section-title-accent">Our Mortgage Solutions</h2>
+                    <p class="mt-10 text-lg text-gray-600 max-w-3xl mx-auto">We offer a comprehensive suite of services to meet your unique financial needs, from your first home to your next investment.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <!-- Service Cards -->
+                    <div class="animate-on-scroll service-card bg-white p-8 rounded-lg shadow-lg border-t-4 border-gold">
+                        <div class="bg-gold/10 inline-flex p-4 rounded-full mb-4"><svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></div>
+                        <h3 class="text-xl font-bold text-navy mb-2">First-Time Homebuyers</h3>
+                        <p class="text-gray-600">Your journey to homeownership starts here. Let us guide you every step of the way.</p>
+                    </div>
+                    <div class="animate-on-scroll service-card bg-white p-8 rounded-lg shadow-lg border-t-4 border-gold" style="transition-delay: 150ms;">
+                        <div class="bg-gold/10 inline-flex p-4 rounded-full mb-4"><svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20L20 4"></path></svg></div>
+                        <h3 class="text-xl font-bold text-navy mb-2">Refinancing</h3>
+                        <p class="text-gray-600">Unlock better rates and terms. We make refinancing simple and rewarding.</p>
+                    </div>
+                    <div class="animate-on-scroll service-card bg-white p-8 rounded-lg shadow-lg border-t-4 border-gold" style="transition-delay: 300ms;">
+                        <div class="bg-gold/10 inline-flex p-4 rounded-full mb-4"><svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></div>
+                        <h3 class="text-xl font-bold text-navy mb-2">Investment Properties</h3>
+                        <p class="text-gray-600">Grow your portfolio with smart financing strategies designed for investors.</p>
+                    </div>
+                    <div class="animate-on-scroll service-card bg-white p-8 rounded-lg shadow-lg border-t-4 border-gold" style="transition-delay: 450ms;">
+                        <div class="bg-gold/10 inline-flex p-4 rounded-full mb-4"><svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-navy mb-2">Private Lending</h3>
+                        <p class="text-gray-600">Flexible options for unique needs. Discover creative solutions beyond the banks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 4. Why Choose Us / Testimonials Section -->
+        <section id="why-us" class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="animate-on-scroll text-center">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-navy section-title-accent">The Chronos Advantage</h2>
+                     <p class="mt-10 text-lg text-gray-600 max-w-3xl mx-auto">Experience the difference of a truly client-focused mortgage service built on trust, transparency, and results.</p>
+                </div>
+                 <div class="mt-20">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonials -->
+                        <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex text-gold mb-2"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            <p class="text-lg italic text-gray-700">"Apurva made our first home buying experience seamless and stress-free. Her expertise and dedication were invaluable."</p>
+                            <p class="mt-4 font-bold text-navy">- Sarah & Tom L.</p>
+                        </div>
+                        <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg" style="transition-delay: 150ms;">
+                             <div class="flex text-gold mb-2"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            <p class="text-lg italic text-gray-700">"Refinancing with Chronos was the best financial decision we've made. Apurva found us a rate we didn't think was possible."</p>
+                            <p class="mt-4 font-bold text-navy">- Michael B.</p>
+                        </div>
+                        <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg" style="transition-delay: 300ms;">
+                             <div class="flex text-gold mb-2"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                            <p class="text-lg italic text-gray-700">"As an investor, I need a sharp, responsive, and creative broker. Apurva is all of that and more. Highly recommended."</p>
+                            <p class="mt-4 font-bold text-navy">- David C.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Mortgage Calculator Section -->
+        <section id="calculator" class="py-24 bg-navy-gradient text-white">
+            <div class="container mx-auto px-6">
+                 <div class="animate-on-scroll text-center">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-gold section-title-accent">Estimate Your Payments</h2>
+                    <p class="mt-10 text-lg text-gray-300 max-w-3xl mx-auto">A powerful tool to help you plan your financial future. See a breakdown of your payments over time.</p>
+                 </div>
+                <div class="animate-on-scroll max-w-4xl mx-auto mt-12 bg-white/5 p-8 rounded-xl shadow-2xl" style="backdrop-filter: blur(10px);">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="w-full md:w-1/2">
+                            <div class="grid grid-cols-1 gap-6">
+                                <div>
+                                    <label for="homePrice" class="block font-semibold mb-2">Home Price ($)</label>
+                                    <input type="number" id="homePrice" class="input-glass" placeholder="500000" value="500000">
+                                </div>
+                                <div>
+                                    <label for="downPayment" class="block font-semibold mb-2">Down Payment ($)</label>
+                                    <input type="number" id="downPayment" class="input-glass" placeholder="100000" value="100000">
+                                </div>
+                                <div>
+                                    <label for="interestRate" class="block font-semibold mb-2">Interest Rate (%)</label>
+                                    <input type="number" id="interestRate" step="0.01" class="input-glass" placeholder="5.5" value="5.5">
+                                </div>
+                                <div>
+                                    <label for="loanTerm" class="block font-semibold mb-2">Loan Term (Years)</label>
+                                    <select id="loanTerm" class="input-glass">
+                                        <option>30</option><option>25</option><option>20</option><option>15</option><option>10</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div id="calculatorResult" class="mt-6 text-center">
+                                <p class="text-lg">Estimated Monthly Payment:</p>
+                                <p id="monthlyPayment" class="font-heading text-5xl font-bold text-gold mt-2"></p>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                             <canvas id="paymentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section -->
+        <section id="contact" class="py-24">
+            <div class="container mx-auto px-6">
+                 <div class="animate-on-scroll text-center">
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-navy section-title-accent">Let’s Get You Approved</h2>
+                    <h3 class="mt-10 font-heading text-2xl md:text-3xl text-gold">"Want to get approved? Call Apurva"</h3>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Ready to take the next step? Reach out today for a complimentary, no-obligation consultation.</p>
+                 </div>
+                <div class="mt-16 flex flex-col md:flex-row gap-10 md:gap-16 items-stretch">
+                    <!-- Contact Form -->
+                    <div class="animate-on-scroll w-full md:w-1/2 bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <form id="contact-form">
+                            <div class="mb-5">
+                                <label for="name" class="block text-navy font-semibold mb-2">Full Name</label>
+                                <input type="text" id="name" class="form-input w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="email" class="block text-navy font-semibold mb-2">Email Address</label>
+                                <input type="email" id="email" class="form-input w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="phone" class="block text-navy font-semibold mb-2">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold">
+                            </div>
+                            <div class="mb-6">
+                                <label for="needs" class="block text-navy font-semibold mb-2">How can we help?</label>
+                                <textarea id="needs" rows="4" class="form-input w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
+                            </div>
+                            <button type="submit" class="w-full btn btn-gold">Send Message</button>
+                             <p id="form-status" class="text-center mt-4"></p>
+                        </form>
+                    </div>
+                    <!-- Direct Contact & Map -->
+                    <div class="animate-on-scroll w-full md:w-1/2 flex flex-col" style="transition-delay: 150ms;">
+                        <div class="space-y-6">
+                             <a href="tel:+19059055595" class="flex items-center space-x-4 group"><div class="bg-gold p-3 rounded-full text-navy">📞</div><div><h4 class="font-bold text-navy text-lg">Direct Contact</h4><p class="text-gray-700 group-hover:text-gold">+1 (905) 905-5595</p></div></a>
+                             <a href="mailto:mortgagewithapurva@gmail.com" class="flex items-center space-x-4 group"><div class="bg-gold p-3 rounded-full text-navy">📧</div><div><h4 class="font-bold text-navy text-lg">Email</h4><p class="text-gray-700 group-hover:text-gold">mortgagewithapurva@gmail.com</p></div></a>
+                        </div>
+                        <div class="mt-8 pt-8 border-t">
+                            <h4 class="font-bold text-navy text-lg mb-4 text-center">Scan for Instant Access</h4>
+                            <div class="flex justify-center">
+                                <div class="w-48 h-48 p-2 rounded-lg shadow-2xl border-4 border-gold overflow-hidden">
+                                     <img src="qr.png" alt="QR Code" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <img src="Chronos Mortgage Inc. Logo with Key Icon.png" alt="Chronos Mortgage Inc. Logo" class="h-20 w-auto mx-auto md:mx-0">
+                    <p class="mt-4 text-sm text-gray-400">Building Futures, One Home at a Time.</p>
+                    <p class="mt-2 text-xs text-gray-500">GNE Mortgages Franchise Of The Mortgage Centre</p>
+                </div>
+                <div>
+                     <h4 class="font-bold text-lg text-gold mb-4">Quick Links</h4>
+                     <a href="#about" class="block text-gray-300 hover:text-gold mb-2">About Apurva</a>
+                     <a href="#services" class="block text-gray-300 hover:text-gold mb-2">Our Services</a>
+                     <a href="#contact" class="block text-gray-300 hover:text-gold">Contact Us</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg text-gold mb-4">Follow Us</h4>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a href="#" class="text-gray-400 social-icon" aria-label="LinkedIn"><svg class="w-6 h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="#" class="text-gray-400 social-icon" aria-label="Instagram"><svg class="w-6 h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.25-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                        <a href="#" class="text-gray-400 social-icon" aria-label="Facebook"><svg class="w-6 h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+             <div class="border-t border-gold/20 mt-8 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; 2025 Chronos Mortgage Inc. All Rights Reserved. | <a href="#" class="hover:text-gold">Privacy Policy</a> | <a href="#" class="hover:text-gold">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Floating CTA & Back to Top -->
+    <a href="#contact" class="fixed bottom-24 right-5 bg-gold text-navy font-bold py-3 px-5 rounded-full shadow-lg hover:bg-orange-accent transition-all duration-300 z-50 floating-cta">
+        Get Approved
+    </a>
+    <button id="back-to-top" class="fixed bottom-5 left-5 bg-navy text-white p-3 rounded-full shadow-lg hover:bg-gray-800 z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+    
+    <!-- Chatbot -->
+    <div id="chatbot-container" class="fixed bottom-5 right-5 z-50">
+        <!-- Chatbot Toggle Button -->
+        <button id="chatbot-toggle" class="bg-navy rounded-full p-4 shadow-lg">
+             <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 11 2s10 4.477 10 10z"></path></svg>
+        </button>
+        <!-- Chatbot Window -->
+        <div id="chatbot-window" class="chatbot-window fixed bottom-24 right-5 bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-b dark:border-gold/30 rounded-t-lg">
+                <div class="flex items-center space-x-2">
+                     <img src="Chronos Mortgage Inc. Logo with Key Icon.png" alt="Logo" class="h-8 w-8">
+                     <div>
+                        <p class="font-bold text-navy">Chronos AI</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Online</p>
+                    </div>
+                </div>
+                <button id="close-chatbot" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <!-- Messages -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <!-- Messages will be injected here -->
+            </div>
+            <!-- Input -->
+            <div class="p-4 border-t dark:border-gold/30">
+                <div id="quick-replies" class="flex flex-wrap gap-2 mb-2"></div>
+                <form id="chat-form" class="flex items-center space-x-2">
+                    <input type="text" id="chat-input" class="chat-input w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold dark:border-gray-600" placeholder="Ask a question...">
+                    <button type="submit" class="btn btn-gold p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DARK MODE TOGGLE ---
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+
+            toggleButton.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                sunIcon.classList.toggle('hidden');
+                moonIcon.classList.toggle('hidden');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            });
+
+            // --- MOBILE MENU ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- HEADER SCROLL EFFECT ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('py-1');
+                    header.classList.remove('py-3');
+                } else {
+                    header.classList.add('py-3');
+                    header.classList.remove('py-1');
+                }
+            });
+
+            // --- MORTGAGE CALCULATOR ---
+            const inputs = ['homePrice', 'downPayment', 'interestRate', 'loanTerm'];
+            inputs.forEach(id => document.getElementById(id).addEventListener('input', calculateAndDisplay));
+            
+            let paymentChart;
+
+            function calculateAndDisplay() {
+                const homePrice = parseFloat(document.getElementById('homePrice').value) || 0;
+                const downPayment = parseFloat(document.getElementById('downPayment').value) || 0;
+                const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
+                const loanTerm = parseInt(document.getElementById('loanTerm').value) || 0;
+                const paymentEl = document.getElementById('monthlyPayment');
+
+                if (homePrice <= 0 || homePrice <= downPayment || interestRate <= 0 || loanTerm <= 0) {
+                    paymentEl.textContent = '$0.00';
+                    if(paymentChart) paymentChart.destroy();
+                    return;
+                }
+
+                const principal = homePrice - downPayment;
+                const monthlyInterestRate = (interestRate / 100) / 12;
+                const numberOfPayments = loanTerm * 12;
+                
+                const monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+                
+                animateCountUp(paymentEl, isFinite(monthlyPayment) ? monthlyPayment : 0);
+                updateChart(principal, downPayment);
+            }
+
+            function updateChart(principal, downPayment) {
+                 const ctx = document.getElementById('paymentChart').getContext('2d');
+                 const isDark = document.documentElement.classList.contains('dark');
+                 if (paymentChart) {
+                    paymentChart.data.datasets[0].data = [principal, downPayment];
+                    paymentChart.options.plugins.legend.labels.color = isDark ? '#E0E0E0' : '#0A1A3F';
+                    paymentChart.update();
+                 } else {
+                    paymentChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Loan Amount', 'Down Payment'],
+                            datasets: [{
+                                data: [principal, downPayment],
+                                backgroundColor: ['#D4AF37', 'rgba(255, 255, 255, 0.2)'],
+                                borderColor: ['#0A1A3F'],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        color: isDark ? '#E0E0E0' : '#0A1A3F'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                 }
+            }
+            
+            function animateCountUp(el, to) {
+                let start = parseFloat(el.textContent.replace(/[$,]/g, '')) || 0;
+                const duration = 1000;
+                const end = to;
+                const startTime = performance.now();
+
+                function step(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    const current = start + (end - start) * progress;
+                    el.textContent = `$${current.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            // --- SCROLL ANIMATIONS ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- CONTACT FORM SUBMISSION ---
+            const form = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                formStatus.textContent = 'Sending...';
+                formStatus.classList.remove('text-red-500', 'text-green-500');
+                
+                // Simulate backend submission
+                setTimeout(() => {
+                    formStatus.textContent = 'Thank you! Your message has been sent.';
+                    formStatus.classList.add('text-green-500');
+                    form.reset();
+                }, 1500);
+            });
+
+            // --- BACK TO TOP BUTTON ---
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+             // --- CHATBOT LOGIC ---
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const closeChatbot = document.getElementById('close-chatbot');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const quickRepliesContainer = document.getElementById('quick-replies');
+
+            const botResponses = {
+                "greeting": "Hello! I'm the Chronos AI Assistant. How can I help you today? Here are a few options:",
+                "default": "I'm not sure how to answer that. For complex questions, it's best to contact Apurva directly. You can use the contact form on this page. Is there anything else I can help with?",
+                "rates": "Current mortgage rates can fluctuate. For the most accurate and personalized information, please use our mortgage calculator or book a consultation with Apurva.",
+                "apply": "That's great! To start your application process, the best first step is to fill out the contact form in the 'Let's Get You Approved' section of our website. Apurva will get back to you promptly.",
+                "services": "We offer a range of services including solutions for first-time homebuyers, refinancing options, financing for investment properties, and private lending. Which one are you most interested in?",
+                "first-time": "We love helping first-time buyers! We guide you through the entire process, from pre-approval to closing. I recommend booking a consultation to discuss your specific situation.",
+                "goodbye": "You're welcome! Have a great day. Feel free to ask if anything else comes up."
+            };
+
+            const quickReplies = [
+                { text: "Current rates?", keyword: "rates" },
+                { text: "How to apply?", keyword: "apply" },
+                { text: "Our services", keyword: "services" },
+            ];
+
+            function addMessage(message, sender = 'bot') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message max-w-xs md:max-w-md p-3 rounded-lg ${sender === 'user' ? 'bg-gold text-navy ml-auto' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'}`;
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.id = 'typing-indicator';
+                typingDiv.className = 'chat-message flex items-center space-x-1 p-3 rounded-lg bg-gray-200 dark:bg-gray-700';
+                typingDiv.innerHTML = `<div class="typing-indicator">
+                    <span class="inline-block w-2 h-2 bg-gray-400 rounded-full"></span>
+                    <span class="inline-block w-2 h-2 bg-gray-400 rounded-full"></span>
+                    <span class="inline-block w-2 h-2 bg-gray-400 rounded-full"></span>
+                </div>`;
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) indicator.remove();
+            }
+
+             function showQuickReplies(replies) {
+                quickRepliesContainer.innerHTML = '';
+                replies.forEach(reply => {
+                    const button = document.createElement('button');
+                    button.textContent = reply.text;
+                    button.className = 'px-3 py-1 text-sm border border-gold rounded-full text-gold hover:bg-gold hover:text-navy transition-colors';
+                    button.onclick = () => {
+                        addMessage(reply.text, 'user');
+                        handleUserInput(reply.keyword);
+                    };
+                    quickRepliesContainer.appendChild(button);
+                });
+            }
+
+            function getBotResponse(input) {
+                input = input.toLowerCase();
+                if (input.includes('rate') || input.includes('interest')) return botResponses.rates;
+                if (input.includes('apply') || input.includes('start') || input.includes('application')) return botResponses.apply;
+                if (input.includes('service') || input.includes('help')) return botResponses.services;
+                if (input.includes('first') || input.includes('homebuyer')) return botResponses['first-time'];
+                if (input.includes('bye') || input.includes('thank')) return botResponses.goodbye;
+                return botResponses.default;
+            }
+
+            function handleUserInput(input) {
+                if (!input.trim()) return;
+                
+                if (chatInput.value) addMessage(input, 'user');
+                chatInput.value = '';
+                quickRepliesContainer.innerHTML = '';
+
+                addTypingIndicator();
+
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = getBotResponse(input);
+                    addMessage(response);
+                    if (response === botResponses.greeting || response === botResponses.services) {
+                        showQuickReplies(quickReplies);
+                    }
+                }, 1500);
+            }
+            
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleUserInput(chatInput.value);
+            });
+
+            chatbotToggle.addEventListener('click', () => {
+                chatbotWindow.classList.toggle('active');
+            });
+            closeChatbot.addEventListener('click', () => {
+                chatbotWindow.classList.remove('active');
+            });
+            
+            // Initial greeting
+            addMessage(botResponses.greeting);
+            showQuickReplies(quickReplies);
+
+            // Initial calculate
+            calculateAndDisplay();
+        });
+    </script>
+</body>
+</html>
+

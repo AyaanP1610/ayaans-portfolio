@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apurva Sindhi - Business Card</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .business-card {
+            width: 800px;
+            height: 450px;
+            background: linear-gradient(135deg, #1e5ba8 0%, #2570c4 100%);
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .orange-section {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 350px;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9500 0%, #ffb347 100%);
+            clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .white-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: white;
+            border-radius: 0 0 25px 25px;
+        }
+        
+        .main-content {
+            padding: 40px;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .name {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.1;
+        }
+        
+        .company {
+            font-size: 32px;
+            margin: 5px 0 0 0;
+            font-weight: normal;
+        }
+        
+        .title {
+            font-size: 24px;
+            color: #ff9500;
+            margin: 8px 0 0 0;
+            font-weight: bold;
+        }
+        
+        .license {
+            font-size: 18px;
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 40px;
+            right: 100px;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .logo-subtext {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .contact-info {
+            position: absolute;
+            bottom: 30px;
+            left: 40px;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        
+        .contact-icon {
+            width: 20px;
+            margin-right: 15px;
+            text-align: center;
+        }
+        
+        .photo {
+            position: absolute;
+            right: 50px;
+            bottom: 30px;
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            background: url('IMG_6536.jpg') center/cover;
+            border: 3px solid #ff9500;
+            z-index: 30;
+        }
+        
+        .tagline {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            color: #ff4444;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .tagline-icon {
+            width: 30px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 3px;
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            top: 3px;
+        }
+        
+        .decorative-line {
+            position: absolute;
+            top: 50px;
+            right: 300px;
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            transform: rotate(-25deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <div class="orange-section"></div>
+        <div class="white-bottom"></div>
+        <div class="decorative-line"></div>
+        
+        <div class="main-content">
+            <h1 class="name">Apurva Sindhi</h1>
+            <div class="company">GNE Mortgages Inc.</div>
+            <div class="title">Mortgage Specialist</div>
+            <div class="license">Lic. #M25002184</div>
+        </div>
+        
+        <div class="logo">
+            <div>
+                <div class="logo-text">gn<span style="color: #ff9500;">></span></div>
+                <div style="font-size: 14px; color: #333; font-weight: bold;">MORTGAGES</div>
+                <div class="logo-subtext">LIC#10394</div>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div>+1 (705) 905-5595</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div>mortgagewithapurva@gmail.com</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">🌐</div>
+                <div>mortgagecentre.com/apurvasindhi</div>
+            </div>
+        </div>
+        
+        <div class="photo"></div>
+        
+        <div class="tagline">
+            <span class="tagline-icon"></span>
+            The Mortgage Centre - We work for you, not the lenders.
+        </div>
+    </div>
+</body>
+</html>
